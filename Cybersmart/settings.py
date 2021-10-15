@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'Cybersmart.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'weathercs',
+        'USER': 'lewisc',
+        'PASSWORD': 'HsndgkqxIr',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

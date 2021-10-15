@@ -1,8 +1,9 @@
 FROM python:3.8.9 as base
 ENV PYTHONUNBUFFERED=1
-WORKDIR /src
-COPY requirements.txt /src/
+RUN mkdir -p /code
+WORKDIR /code
+COPY requirements.txt /code/
 RUN pip install -r requirements.txt
-COPY . /src/
+COPY . /code/
 
 CMD python manage.py runserver 0.0.0.0:8080
