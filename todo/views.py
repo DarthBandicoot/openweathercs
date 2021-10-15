@@ -1,9 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views import View
-
-from django.views.generic import ListView, FormView, DeleteView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, FormView, DetailView, UpdateView
 
 from todo.forms import AccountForm, AddTaskForm
 from todo.models import Tasks, TodoList, Locations

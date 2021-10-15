@@ -13,12 +13,12 @@ class AccountForm(forms.Form):
     email = forms.EmailField(required=False)
     pin = forms.IntegerField(
         label="Enter 4 digit pin to create with account or if you already have an account enter your pin too login.")
-    active_account = forms.ChoiceField(choices=[
-        (choice.pk, choice) for choice in User.objects.all().exclude(username="admin")], required=False)
+    active_account = forms.ChoiceField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.fields['active_account'].choices = User.objects.all().exclude(username="admin"),
 
         self.helper.layout = Layout(
             Field('username'),
@@ -36,11 +36,6 @@ class AccountForm(forms.Form):
 
 
 class AddTaskForm(forms.ModelForm):
-    # title = forms.CharField(max_length=250, label="Title of Task")
-    # description = forms.CharField(max_length=500, label="Short description of the Task")
-    # location = forms.ChoiceField(choices=[
-    #     (choice.pk, choice) for choice in Locations.objects.all()], required=False)
-    # status = forms.ChoiceField(choices=TASK_STATUS)
 
     class Meta:
         model = Tasks
