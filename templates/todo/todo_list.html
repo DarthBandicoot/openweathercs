@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <div class="container">
+        <h3>Task List</h3>
+        <table class="table">
+
+            {% if tasks_list %}
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Owner</th>
+                    <th>Location</th>
+                    <th>Temperature</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks_list %}
+                    {% if task.location.temperature <= 7 %}
+                        <tr bgcolor="{{ cold }}">
+                    {% elif task.location.temperature > 7 and task.location.temperature < 18 %}
+                            <tr bgcolor="{{ warm }}">
+                    {% else %}
+                            <tr bgcolor="{{ hot }}">
+                    {% endif %}
+                        <th>{{ task.title }}</th>
+                        <td>{{ task.owner }}</td>
+                        <th>{{ task.location.city }}</th>
+                        <th>{{ task.location.temperature }}</th>
+                        <td>{{ task.status }}</td>
+
+                        <td>
+                            {% if task.status != 'DONE' %}
+                            <a href="{% url 'todo-list:edit_task' todo_list_id=todo_list pk=task.id %}">Edit
+                            Task</a> ||
+                            {% endif %}
+                            <a href="{{todo_list}}/task/delete/{{task.pk}}">Delete
+                            Task</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            {% endif %}
+        </table>
+        <a href="{% url 'todo-list:create_task' todo_list_id=todo_list %}">Add New Task?</a>
+    </div>
+
+    </body>
+{% endblock %}
