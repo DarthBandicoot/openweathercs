@@ -1,7 +1,7 @@
 # openweathercs
 
 
-My attempt at CyberSmart Tech test
+My attempt at CyberSmart Tech test.
 
 Key Features:
 
@@ -17,3 +17,29 @@ Key Features:
 
     Once a Task status has been marked as Done it is no longer editable
 
+
+
+# Setup
+
+## Setup without Docker
+
+    1. Check that the sqlite3 is uncommented in the settings file
+    2. pip install -r requirements.txt
+    3. python manage.py migrate
+    4. python manage.py createsuperuser
+    5. python manage.py add_locations
+
+
+## Setup with Docker
+
+    1. Uncomment the postgresql db settings, comment out the sql one
+    2. run docker-compose up
+    3. docker-compose exec openweathercs python manage.py migrate
+    4. docker-compose exec openweathercs python manage.py createsuperuser
+    5. docker-compose exec openweathercs python manage.py add_locations
+
+
+### Bugs with the tech test
+
+    1. When docker setup is ran currently, docker-compose up works and launches the db however I can't seem to open the
+    application in my browser.

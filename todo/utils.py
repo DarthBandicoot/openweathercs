@@ -4,6 +4,9 @@ from Cybersmart import settings
 
 
 def get_weather(location):
+    """
+    Function that gets the weather through the openweather api
+    """
     try:
         response = requests.get(
             "https://api.openweathermap.org/data/2.5/weather?units=metric&q={}&APPID={}".format(location,

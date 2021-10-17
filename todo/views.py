@@ -9,6 +9,9 @@ from todo.utils import get_weather
 
 
 class AccountView(FormView):
+    """
+    View that allows you to either login with existing account or create a new account to manage your Todo list
+    """
     template_name = 'todo/generic_form.html'
     form_class = AccountForm
     todolist = None
@@ -25,7 +28,6 @@ class AccountView(FormView):
             self.user_exist = User.objects.create(username=form.cleaned_data['username'],
                                                   email=form.cleaned_data['email'])
         else:
-            print(form.cleaned_data['active_account'])
             self.user_exist = User.objects.get(pk=form.cleaned_data['active_account'])
         self.pin_code = form.cleaned_data['pin']
         return super().form_valid(form)
@@ -42,6 +44,9 @@ class AccountView(FormView):
 
 
 class TodoListView(ListView):
+    """
+    Listview for your tasks
+    """
     template_name = 'todo/todo_list.html'
     context_object_name = 'tasks_list'
     todo_list = None
@@ -64,6 +69,9 @@ class TodoListView(ListView):
 
 
 class ParentTaskView:
+    """
+    Parent view for the various Task views, this is stop code being repeated in each view.
+    """
     model = Tasks
     template_name = 'todo/generic_form.html'
     todo_list = None
