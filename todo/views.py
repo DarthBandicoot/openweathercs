@@ -21,8 +21,12 @@ class AccountView(FormView):
         return context
 
     def form_valid(self, form):
-        self.user_exist = User.objects.get_or_create(username=form.cleaned_data['username'],
-                                                     email=form.cleaned_data['email'])
+        if form.cleaned_data['username']:
+            self.user_exist = User.objects.create(username=form.cleaned_data['username'],
+                                                  email=form.cleaned_data['email'])
+        else:
+            print(form.cleaned_data['active_account'])
+            self.user_exist = User.objects.get(pk=form.cleaned_data['active_account'])
         self.pin_code = form.cleaned_data['pin']
         return super().form_valid(form)
 
@@ -31,10 +35,7 @@ class AccountView(FormView):
         return reverse_lazy('todo-list:todo_list', kwargs={'todo_list_id': self.todolist.id})
 
     def get_todolist(self):
-        if len(self.user_exist) > 0:
-            owner = self.user_exist[0]
-        else:
-            owner = self.user_exist
+        owner = self.user_exist
         self.todolist = TodoList.objects.filter(owner=owner.id, pin__exact=self.pin_code).first()
         if not self.todolist:
             self.todolist = TodoList.objects.create(owner=owner, title="TODO List", pin=self.pin_code)
