@@ -18,7 +18,9 @@ class AccountForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.fields['active_account'].choices = User.objects.all().exclude(username="admin"),
+        users = User.objects.all().exclude(username="admin")
+        if users.count() > 0:
+            self.fields['active_account'].choices = User.objects.all().exclude(username="admin"),
 
         self.helper.layout = Layout(
             Field('username'),
