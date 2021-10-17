@@ -20,7 +20,7 @@ class AccountForm(forms.Form):
         self.helper = FormHelper()
         users = User.objects.all().exclude(username="admin")
         if users.count() > 0:
-            self.fields['active_account'].choices = User.objects.all().exclude(username="admin"),
+            self.fields['active_account'].choices = users,
 
         self.helper.layout = Layout(
             Field('username'),
