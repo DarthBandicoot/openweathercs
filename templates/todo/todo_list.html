@@ -14,7 +14,6 @@
                 <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Owner</th>
                     <th>Location</th>
                     <th>Temperature</th>
                     <th>Status</th>
@@ -31,7 +30,6 @@
                             <tr bgcolor="{{ hot }}">
                     {% endif %}
                         <th>{{ task.title }}</th>
-                        <td>{{ task.owner }}</td>
                         <th>{{ task.location.city }}</th>
                         <th>{{ task.location.temperature }}</th>
                         <td>{{ task.status }}</td>
